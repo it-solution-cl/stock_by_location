@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="report_stock_location_custom_view">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <t t-foreach="docs" t-as="o">
+                        <div>
+                            <div style="margin-bottom:40px;">
+                                <h3 class="pull-left">
+                                    <span style="font-weight: bold;">Product :</span>
+                                    <span t-field="o.name"/>
+                                </h3>
+                                <h3 class="pull-right">
+                                    <span style="font-weight: bold;">Date :</span>
+                                    <span t-field="o.create_date"/>
+                                </h3>
+                            </div>
+                        </div>
+                        <br/>
+                        <div>
+                            <div>
+                                <table style="border-spacing:0;margin-bottom:0;height:122px;"
+                                       class="table">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                    style="width:50%;border: 2px solid black;text-align: center; vertical-align: middle;">
+                                                Location
+                                            </th>
+                                            <th
+                                                    style="border: 2px solid black;text-align: center; vertical-align: middle;">
+                                                On Hand
+                                            </th>
+                                            <th
+                                                    style="border: 2px solid black;text-align: center; vertical-align: middle;">
+                                                Forcasted
+                                            </th>
+                                            <th
+                                                    style="border: 2px solid black;text-align: center; vertical-align: middle;">
+                                                Incoming
+                                            </th>
+                                            <th
+                                                    style="border: 2px solid black;text-align: center; vertical-align: middle;">
+                                                Outgoing
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="on_hand_qty_total" t-value="0.0"/>
+                                        <t t-set="forcasted_qty_total" t-value="0.0"/>
+                                        <t t-set="incoming_qty_total" t-value="0.0"/>
+                                        <t t-set="out_qty_total" t-value="0.0"/>
+                                        <tr t-foreach="o.stock_location" t-as="stock" style="width: 1in;">
+                                            <td
+                                                    style="border: 2px solid black;text-align: center; vertical-align: middle;">
+                                                <span t-field="stock.stock_location_id"/>
+                                            </td>
+                                            <td
+                                                    style="border: 2px solid black;text-align: center; vertical-align: middle;">
+                                                <span t-field="stock.on_hand_qty"/>
+                                            </td>
+                                            <td
+                                                    style="border: 2px solid black;text-align: center; vertical-align: middle;">
+                                                <span t-field="stock.forcasted_qty"/>
+                                            </td>
+                                            <td
+                                                    style="border: 2px solid black;text-align: center; vertical-align: middle;">
+                                                <span t-field="stock.incoming_qty"/>
+                                            </td>
+                                            <td
+                                                    style="border: 2px solid black;text-align: center; vertical-align: middle;">
+                                                <span t-field="stock.out_qty"/>
+                                            </td>
+
+                                            <t t-set="on_hand_qty_total"
+                                               t-value="on_hand_qty_total +int ( stock.on_hand_qty) "/>
+                                            <t t-set="forcasted_qty_total"
+                                               t-value="forcasted_qty_total +int ( stock.forcasted_qty) "/>
+                                            <t t-set="incoming_qty_total"
+                                               t-value="incoming_qty_total +int ( stock.incoming_qty) "/>
+                                            <t t-set="out_qty_total" t-value="out_qty_total +int ( stock.out_qty) "/>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 2px solid black;text-align: right;font-weight: bold;">
+                                                Total
+                                            </td>
+                                            <td style="border: 2px solid black;text-align: center; vertical-align: middle;font-weight: bold;">
+                                                <span t-esc="on_hand_qty_total"/>
+                                            </td>
+                                            <td style="border: 2px solid black;text-align: center; vertical-align: middle;font-weight: bold;">
+                                                <span t-esc="forcasted_qty_total"/>
+                                            </td>
+                                            <td style="border: 2px solid black;text-align: center; vertical-align: middle;font-weight: bold;">
+                                                <span t-esc="incoming_qty_total"/>
+                                            </td>
+                                            <td style="border: 2px solid black;text-align: center; vertical-align: middle;font-weight: bold;">
+                                                <span t-esc="out_qty_total"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_stock_location">
+            <t t-call="web.html_container">
+                <t t-foreach="doc_ids" t-as="o">
+                    <t t-call="stock_by_location.report_stock_location_custom_view"/>
+                </t>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>

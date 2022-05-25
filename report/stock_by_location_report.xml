@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <report 
+            id="report_custom_stock_location"
+            string="Stocks By Location"
+            model="product.product" 
+            report_type="qweb-pdf"
+            file="stock_by_location.report_stock_location" 
+            name="stock_by_location.report_stock_location" 
+        />
+        
+        <report 
+            id="report_custom_stock_location_template"
+            string="Stocks By Location"
+            model="product.template" 
+            report_type="qweb-pdf"
+            file="stock_by_location.report_stock_location_template" 
+            name="stock_by_location.report_stock_location_template" 
+        />
+    </data>
+</odoo>

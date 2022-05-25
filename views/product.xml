@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_product_bi_inherit" model="ir.ui.view">
+            <field name="name">view.product.bi.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='inventory']" position="after">
+                        
+ <group col='4'>
+                           <field name="start_date"/>
+                           <field name="end_date"/>
+                        </group>
+                    <group>
+                        <button name="update_the_stock_by_date" type='object' string='   Update Stock By Location    ' class="btn-primary" />
+                    </group>
+<group>                       
+                        <button name="remove_filter" type='object' string='Remove Filter' class="btn-primary" />
+</group>
+
+                        <separator string="Stocks Qty By Location"/>
+                 
+                        <field name="stock_location" nolabel="1">
+                            <tree>
+                                <field name="stock_location_id" />
+                                <field name="on_hand_qty" />
+                                <field name="forcasted_qty" />
+                                <field name="incoming_qty" />
+                                <field name="out_qty" />
+                            </tree>
+                        </field>
+                </xpath>
+                
+            </field>
+        </record>
+
+        <record id="view_template_bi_inherit" model="ir.ui.view">
+            <field name="name">view.template.bi.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='inventory']" position="after">
+  <group>
+                        <button name="upate_compute_stock_location" type='object' string='   Update Stock By Location    ' class="btn-primary" />
+                    </group>
+
+                        <separator string="Stocks Qty By Location"/>
+                        <field name="stock_location_template" nolabel="1">
+                            <tree>
+                                <field name="stock_location_id" />
+                                <field name="on_hand_qty" />
+                                <field name="forcasted_qty" />
+                                <field name="incoming_qty" />
+                                <field name="out_qty" />
+                            </tree>
+                        </field>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
